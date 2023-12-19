@@ -2,7 +2,7 @@
 <!-- EN-Revision: d3f04e6e79e98e4737fd6e325f8651badd83b51e git-hash Maintainer: dbomard Status: ready-->
 <!-- Reviewed: no -->
 <sect1 xml:id="migration83.windows-support" xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>Windows Support</title>
+ <title>Support Windows</title>
 
  <sect2 xml:id="migration83.windows-support.core">
   <title>Core</title>
