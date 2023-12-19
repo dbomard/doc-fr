@@ -25,9 +25,8 @@
    <title>Typage des constantes de classe</title>
 
    <para>
-    Les constantes de classe, d'interface, de trait et d'énumérations supportent 
+    Les constantes de classe, d'interface, de trait et d'énumération supportent 
     désormais la déclaration typée.
-    Class, interface, trait, and enum constants now support type declarations.
     <!-- RFC: https://wiki.php.net/rfc/typed_class_constants -->
    </para>
   </sect3>
@@ -59,11 +58,11 @@
   </sect3>
 
   <sect3 xml:id="migration83.new-features.core.fetch-class-constant-dynamically-syntax">
-   <title>Syntaxe pour accéder dynamiquement à une constante de classe</title>
+   <title>Accès dynamique à une constante de classe</title>
 
    <para>
-    Les constantes de classe peuvent désormais être obtenues dynamiquement en 
-    utilisant la syntaxe
+    Les constantes de classe peuvent désormais être accessibles dynamiquement 
+    en utilisant la syntaxe
     <code>C::{$name}</code>.
     <!-- RFC: https://wiki.php.net/rfc/dynamic_class_constant_fetch -->
    </para>
