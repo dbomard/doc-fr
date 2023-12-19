@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- EN-Revision: 6c4b60507acb592c4443fd8e5263459e07d8bb24 git-hash Maintainer: dbomard Status: ready-->
+<!-- Reviewed: no -->
+<sect1 xml:id="migration83.new-features" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title>Nouvelles fonctionalités</title>
+
+ <sect2 xml:id="migration83.new-features.core">
+  <title>PHP Core</title>
+
+  <sect3 xml:id="migration83.new-features.core.readonly-modifier-improvements">
+   <title>Ajouts aux déclarations de lecture seule</title>
+
+   <para>
+    Les classes anonymes peuvent désormais être déclarées en lecture seule.
+   </para>
+
+   <para>
+    Les propriétés en lecture seule peuvent maintenant être réinitialisées lors 
+    du clonage.
+    <!-- RFC: https://wiki.php.net/rfc/readonly_amendments -->
+   </para>
+  </sect3>
+
+  <sect3 xml:id="migration83.new-features.core.typed-class-constants">
+   <title>Typage des constantes de classe</title>
+
+   <para>
+    Les constantes de classe, d'interface, de trait et d'énumérations supportent 
+    désormais la déclaration typée.
+    Class, interface, trait, and enum constants now support type declarations.
+    <!-- RFC: https://wiki.php.net/rfc/typed_class_constants -->
+   </para>
+  </sect3>
+
+  <sect3 xml:id="migration83.new-features.core.closures-created-from-magic-methods">
+   <title>Closures créées à partir de méthodes magiques</title>
+
+   <para>
+    Les Closures créées à partir de méthodes acceptent désormais des arguments nommés.
+   </para>
+  </sect3>
+
+  <sect3 xml:id="migration83.new-features.core.final-modifier-method-from-trait">
+   <title>Utilisation du modificateur final pour une méthode dans un trait</title>
+
+   <para>
+    Le modificateur final peut maintenant être utilisé pour une méthode dans un trait.
+   </para>
+  </sect3>
+
+  <sect3 xml:id="migration83.new-features.core.override-attribute">
+   <title>L'attribut override</title>
+
+   <para>
+    Ajout de l'attribut #[\Override] qui permet de vérifier qu'une méthode 
+    existe dans une classe parente ou dans une interface implémentée.
+    <!-- RFC: https://wiki.php.net/rfc/marking_overriden_methods -->
+   </para>
+  </sect3>
+
+  <sect3 xml:id="migration83.new-features.core.fetch-class-constant-dynamically-syntax">
+   <title>Syntaxe pour accéder dynamiquement à une constante de classe</title>
+
+   <para>
+    Les constantes de classe peuvent désormais être obtenues dynamiquement en 
+    utilisant la syntaxe
+    <code>C::{$name}</code>.
+    <!-- RFC: https://wiki.php.net/rfc/dynamic_class_constant_fetch -->
+   </para>
+  </sect3>
+
+  <sect3 xml:id="migration83.new-features.core.static-variable-initializers">
+   <title>Initialisations de variables statiques</title>
+
+   <para>
+    Les initialisations de variables statiques peuvent maintenant contenir des 
+    expressions arbitraires.
+    <!-- RFC: RFC: https://wiki.php.net/rfc/arbitrary_static_variable_initializers -->
+   </para>
+  </sect3>
+
+  <sect3 xml:id="migration83.new-features.core.fallback-value-syntax-for-php-ini">
+   <title>Valeurs par défaut dans les variables ini</title>
+
+   <para>
+    php.ini supporte maintenant l'attribution de valeurs par défaut.
+    <!-- refs: https://github.com/php/php-src/pull/11351 -->
+    <informalexample>
+     <programlisting role="php">
+<![CDATA[
+<?php
+/*
+ /path/to/user.ini contient les paramètres suivants:
+
+listen = localhost:${DRUPAL_FPM_PORT:-9000}
+*/
+
+$user_ini = parse_ini_file('/path/to/user.ini');
+echo $user_ini['listen']; // localhost:9000
+]]>
+     </programlisting>
+    </informalexample>
+
+   </para>
+  </sect3>
+
+ </sect2>
+
+ <sect2 xml:id="migration83.new-features.cli">
+  <title>CLI</title>
+
+  <para>
+   Il est maintenant possible de linter plusieurs fichiers.
+  </para>
+ </sect2>
+
+ <sect2 xml:id="migration83.new-features.dom">
+  <title>DOM</title>
+
+  <para>
+   Ajout des propriétés <property>DOMElement::$className</property>
+   et <property>DOMElement::$id</property>.
+   Celles-ci ne sont pas encore sûres au niveau binaire en raison des 
+   limitations sous-jacentes de libxml2.
+   Cela signifie que les valeurs des propriétés seront coupées à un octet NUL.
+  </para>
+
+  <para>
+   Ajout des propriétés <property>DOMNode::$isConnected</property>
+   et <property>DOMNameSpaceNode::$isConnected</property>.
+  </para>
+
+  <para>
+   Ajout des propriétés <property>DOMNode::$parentElement</property>
+   et <property>DOMNameSpaceNode::$parentElement</property>.
+  </para>
+ </sect2>
+
+ <sect2 xml:id="migration83.new-features.ffi">
+  <title>FFI</title>
+
+  <para>
+   Il est maintenant possible d'assigner un objet 
+   <classname>FFI\CData</classname> à un autre objet FFI\CData.
+   Cela signifie que CData peut maintenant être assigné à des structures et à des champs.
+  </para>
+ </sect2>
+
+ <sect2 xml:id="migration83.new-features.opcache">
+  <title>Opcache</title>
+
+  <para>
+   <code>opcache_get_status()['scripts'][n]['revalidate']</code> contient 
+   maintenant un timestamp Unix à partir du moment où la prochaine 
+   revalidation du timestamp des scripts est attendue, dicté par la directive 
+   INI <link linkend="ini.opcache.revalidate-freq">opcache.revalidate_freq</link>.
+  </para>
+ </sect2>
+
+ <sect2 xml:id="migration83.new-features.posix">
+  <title>POSIX</title>
+
+  <para>
+   <function>posix_getrlimit</function> prend maintenant un paramètre
+   <parameter>$res</parameter> optionel qui autorise une requête limitée à une 
+   ressource unique.
+  </para>
+
+  <para>
+   <function>posix_isatty</function> lève maintenant des avertissements de type 
+   pour les entiers qui suivent les sémantiques habituelles de ZPP.
+  </para>
+
+  <para>
+   <function>posix_ttyname</function> lève maintenant des avertissements de type 
+   pour les entiers qui suivent les sémantiques habituelles de ZPP et des 
+   avertissements de valeur pour les entiers indiquant des fichiers invalides.
+  </para>
+ </sect2>
+
+ <sect2 xml:id="migration83.new-features.streams">
+  <title>Flux</title>
+
+  <para>
+   Les flux peuvent désormais émettre la notification 
+   <constant>STREAM_NOTIFY_COMPLETED</constant>. Celle-ci n'était pas 
+   implémentée jusqu'alors.
+  </para>
+ </sect2>
+
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: sgml
+sgml-omittag:t
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+indent-tabs-mode:nil
+sgml-parent-document:nil
+sgml-default-dtd-file:"~/.phpdoc/manual.ced"
+sgml-exposed-tags:nil
+sgml-local-catalogs:nil
+sgml-local-ecat-files:nil
+End:
+vim600: syn=xml fen fdm=syntax fdl=2 si
+vim: et tw=78 syn=sgml
+vi: ts=1 sw=1
+-->
